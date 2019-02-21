@@ -16,7 +16,7 @@ const DEFAULT_ITEM_ATUALIZAR = {
 
 describe('Suite de manipulação de hérois', () => {
     before(async () => {
-        await database.register(DEFAULT_ITEM_CADASTRAR)
+        //await database.register(DEFAULT_ITEM_CADASTRAR)
         await database.register(DEFAULT_ITEM_ATUALIZAR)
     })
 
@@ -40,7 +40,7 @@ describe('Suite de manipulação de hérois', () => {
         deepEqual(resultado, expected)
     })
 
-    it('deve atualizar um heroi pelo id', async () => {
+    it.only('deve atualizar um heroi pelo id', async () => {
         const expected = { ...DEFAULT_ITEM_ATUALIZAR }
         const newData = {nome: 'Batman', poder: 'Dinheiro'}
         await database.update(DEFAULT_ITEM_ATUALIZAR.id, newData)

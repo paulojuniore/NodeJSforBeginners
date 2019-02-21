@@ -56,9 +56,9 @@ class Database {
         if(index === -1)
             throw Error('The hero with especified id doesn\'t exists')
         const atual = dataFile[index]
-        const update = { ...atual, ...changes }
+        const novo = { ...atual, ...changes }
         dataFile.splice(index, 1)
-        return await this.register([{ ...dataFile, update }])
+        return await this.register([{ ...dataFile, novo }])
     }
 }
 
