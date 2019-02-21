@@ -49,6 +49,17 @@ class Database {
         data.splice(index, 1)
         return await this.writeFile(data)
     }
+
+    async update(id, changes) {
+        const dataFile = await this.getFileData();
+        const index = dataFile.findIndex(item => item.id === parseInt(id))
+        if(index === -1)
+            throw Error('The hero with especified id doesn\'t exists')
+        const atual = dataFile[index]
+        const update = { ...atual, ...changes }
+        dataFile.splice(index, 1)
+        return await this.register([{ ...dataFile, update }])
+    }
 }
 
 module.exports = new Database()
