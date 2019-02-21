@@ -25,16 +25,15 @@ class Database {
 
     async register(hero) {
         const file = await this.getFileData();
-        const id = hero.id <= 2 ? hero.id : Date.now()
+        const id = hero.id <= 2 ? hero.id : Date.now();
         const heroWithId = { ...hero, id }
-        const finalData = [ ...file, heroWithId ]
-        const result = await this.writeFile(finalData)
-        return result;
+        console.log('register:', heroWithId)
+        return await this.writeFile([...file, heroWithId])
     }
 
     async list(id) {
         const dados = await this.getFileData()
-        const dataFilter = dados.filter(item => (id ? (item.id === id) : true))
+        const dataFilter = dados.filter(item => (id ? (item.id === parseInt(id)) : true))
         return dataFilter;
     }
 
@@ -43,7 +42,7 @@ class Database {
             return await this.writeFile([])
         }
         const data = await this.getFileData()
-        const index = data.findIndex(item => item.id === parseInt(id))
+        const index = data.findIndex(item => parseInt(item.id) === parseInt(id))
         if(index === -1)
             throw Error('The hero doesn\'t exists')
         data.splice(index, 1)
@@ -52,14 +51,20 @@ class Database {
 
     async update(id, changes) {
         const dataFile = await this.getFileData();
-        const index = dataFile.findIndex(item => item.id === parseInt(id))
-        if(index === -1)
+        const index = dataFile.findIndex(item => item.id === parseInt(id));
+        if(index === -1){
             throw Error('The hero with especified id doesn\'t exists')
-        const atual = dataFile[index]
-        const novo = { ...atual, ...changes }
-        dataFile.splice(index, 1)
-        return await this.register([{ ...dataFile, novo }])
+        }
+
+        const atual = dataFile[index];
+        dataFile.splice(index, 1);
+
+        // workaround para remover valores undefined do objeto
+        const objAtualizado = JSON.parse(JSON.stringify(changes));
+        const dadoAtualizado = Object.assign({}, atual, objAtualizado);
+
+        return await this.writeFile([ ...dataFile, dadoAtualizado ])
     }
 }
 
-module.exports = new Database()
+module.exports = new Database();
