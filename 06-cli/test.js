@@ -12,6 +12,7 @@ describe('Suite de manipulação de hérois', () => {
     before(async () => {
         await database.register(DEFAULT_ITEM_CADASTRAR)
     })
+    
     it('deve pesquisar um heroi usando arquivos', async () => {
         const expected = DEFAULT_ITEM_CADASTRAR
         const [resultado] = await database.list(expected.id)
@@ -23,5 +24,12 @@ describe('Suite de manipulação de hérois', () => {
         const resultado = await database.register(DEFAULT_ITEM_CADASTRAR)
         const [actual] = await database.list(DEFAULT_ITEM_CADASTRAR.id)
         ok(actual, expected)
+    })
+
+    // only executa apena o teste que o contenha
+    it.only('deve remover um heroi pelo o id', async () => {
+        const expected = true
+        const resultado = await database.remove(DEFAULT_ITEM_CADASTRAR.id)
+        deepEqual(resultado, expected)
     })
 })
