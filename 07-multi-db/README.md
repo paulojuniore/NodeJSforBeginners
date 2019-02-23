@@ -40,3 +40,5 @@
 <code>docker exec -it mongodb \
     mongo --host localhost -u admin -p senhaadmin --authenticationDatabase admin \
     --eval "db.getSiblingDB('heroes').createUser({user: 'paulojuniore', pwd: 'minhasenhasecreta', roles: [{role: 'readWrite', db: 'heroes'}]})"</code>
+
+<code>npm install sequelize pg-hstore pg</code>
