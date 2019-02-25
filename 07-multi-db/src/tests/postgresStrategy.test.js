@@ -18,8 +18,13 @@ describe('Postgres Strategy', function () {
         const result = await context.isConnected()
         assert.equal(result, true)
     })
-    it.only('Create a register in the table heroes', async function () {
+    it('Create a register in the table heroes', async function () {
         const result = await context.create(MOCK_HEROI_CADASTRAR)
+        delete result.id
+        assert.deepEqual(result, MOCK_HEROI_CADASTRAR)
+    })
+    it('Listagem de registro da tabela heróis', async function () {
+        const [result] = await context.read({ nome: MOCK_HEROI_CADASTRAR.nome })
         delete result.id
         assert.deepEqual(result, MOCK_HEROI_CADASTRAR)
     })

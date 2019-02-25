@@ -59,8 +59,12 @@ class Postgres extends Crud {
     }
 
     async create(item) {
-        const { dataValues } = await this._herois.create(item)
+        const { dataValues } = await this._herois.create(item, { raw: true })
         return dataValues
+    }
+
+    async read(column = {}) {
+        return this._herois.findAll({ where: column, raw: true })
     }
 }
 
