@@ -6,6 +6,10 @@ class ContextStrategy extends Crud {
         this._database = strategy
     }
 
+    connect() {
+        return this._database.connect()
+    }
+
     create(item) {
         return this._database.create(item)
     }

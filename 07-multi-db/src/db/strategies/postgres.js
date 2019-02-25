@@ -5,11 +5,10 @@ class Postgres extends Crud {
     constructor() {
         super()
         this._driver = null,
-        this._herois = null,
-        this._conect()
+        this._herois = null
     }
 
-    _conect() {
+    async connect() {
         this._driver = new Sequelize(
             'heroes',
             'paulojuniore',
@@ -21,10 +20,11 @@ class Postgres extends Crud {
                 operatorsAliases: false
             }
         )
+        await this.defineModel()
     }
 
     async defineModel() {
-        this._herois = driver.define('heroes', {
+        this._herois = this._driver.define('heroes', {
             id: {
                 type: Sequelize.INTEGER,
                 required: true,
@@ -44,7 +44,7 @@ class Postgres extends Crud {
             freezeTableName: false,
             timestamps: false
         })
-        await Heroes.sync()
+        await this._herois.sync()
     }
 
     async isConnected() {
@@ -58,8 +58,9 @@ class Postgres extends Crud {
         }
     }
 
-    create(item) {
-        console.log('O item foi salvo em Postgres')
+    async create(item) {
+        const { dataValues } = await this._herois.create(item)
+        return dataValues
     }
 }
 
