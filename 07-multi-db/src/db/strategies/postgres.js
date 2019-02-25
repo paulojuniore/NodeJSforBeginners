@@ -66,6 +66,10 @@ class Postgres extends Crud {
     async read(column = {}) {
         return this._herois.findAll({ where: column, raw: true })
     }
+
+    async update(id, item) {
+        return this._herois.update(item, {where: {id : id}})
+    }
 }
 
 module.exports = Postgres
