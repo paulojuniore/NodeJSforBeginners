@@ -60,7 +60,15 @@ class MongoDB extends Crud {
     }
 
     read(query, skip=0, limit=10) {
-        return this._herois.find(query).skip().limit()
+        return this._herois.find(query)
+    }
+
+    update(id, item) {
+        return this._herois.updateOne({_id: id}, {$set: item})
+    }
+
+    delete(id) {
+        return this._herois.deleteMany({_id: id})
     }
    
 }
