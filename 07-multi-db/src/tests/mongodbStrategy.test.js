@@ -1,16 +1,18 @@
 const assert = require('assert')
 const Context = require('../db/strategies/base/contextStrategy')
-const MongoDB = require('../db/strategies/mongodb')
-const context = new Context(new MongoDB())
+const MongoDB = require('../db/strategies/mongodb/mongodb')
+const heroiSchema = require('./../db/strategies/mongodb/schemas/heroiSchema')
 
 const MOCK_HEROI_CADASTRAR = {
     nome: 'Mulher maravilha',
     poder: 'Laço mágico'
 }
 
+let context = {}
 describe('MongoDB Strategy', function () {
     this.beforeAll(async () => {
-        await context.connect()
+        const connection = MongoDB.connect()
+        context = new Context(new MongoDB(connection, heroiSchema))
         await context.create(MOCK_HEROI_CADASTRAR)
     }) 
 
@@ -32,15 +34,15 @@ describe('MongoDB Strategy', function () {
     })
 
     it('Atualizar um registro na tabela a partir do id', async () => {
-        const result = await context.update('5c75b21e7c315822186dc228', {
-            nome: 'Ragnar LothBrook',
-            poder: 'Viking'
+        const result = await context.update('5c76bedf44085921d8cccbc8', {
+            nome: 'Hvitserk',
+            poder: 'Viking Feroz'
         })
         assert.deepEqual(result.nModified, 1)
     })
 
     it('Remove um registro da tabela a partir do seu id', async () => {
-        const result = await context.delete('5c75b5b285ba8b2a588c94fd')
+        const result = await context.delete('5c76bede44085921d8cccbc7')
         assert.deepEqual(result.deletedCount, 1)
     })
 })

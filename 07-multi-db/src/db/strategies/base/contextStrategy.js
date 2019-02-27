@@ -6,8 +6,12 @@ class ContextStrategy extends Crud {
         this._database = strategy
     }
 
-    connect() {
+    static connect() {
         return this._database.connect()
+    }
+
+    isConnected() {
+        return this._database.isConnected()
     }
 
     create(item) {
@@ -26,9 +30,6 @@ class ContextStrategy extends Crud {
         return this._database.delete(id)
     }
 
-    isConnected() {
-        return this._database.isConnected()
-    }
 }
 
 module.exports = ContextStrategy

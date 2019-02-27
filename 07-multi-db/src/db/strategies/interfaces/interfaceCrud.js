@@ -13,10 +13,6 @@ class Crud {
         throw new NotImplementedException();
     }
     
-    defineModel() {
-        throw new NotImplementedException();
-    }
-
     create(item) {
         throw new NotImplementedException();
     }
