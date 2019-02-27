@@ -26,6 +26,7 @@ class MongoDB extends Crud {
         const connection = Mongoose.connection
         connection.once('open', () => console.log('Database is running!'))
         this._driver = connection
+        this.defineModel()
     }
 
     async isConnected() {
@@ -54,15 +55,14 @@ class MongoDB extends Crud {
         this._herois = Mongoose.model('heroi', heroiSchema)
     }
 
-    async create(item) {
-        const resultCadastrar = await model.create({
-            nome: 'Batman',
-            poder: 'Dinheiro'
-        })
-        console.log('result cadastrar:', resultCadastrar)
-        const listItens = await model.find()
-        console.log(listItens)
+    create(item) {
+        return this._herois.create(item) 
     }
+
+    read(query, skip=0, limit=10) {
+        return this._herois.find(query).skip().limit()
+    }
+   
 }
 
 module.exports = MongoDB
