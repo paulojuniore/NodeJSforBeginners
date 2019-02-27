@@ -5,6 +5,18 @@ class NotImplementedException extends Error {
 }
 
 class Crud {
+    connect() {
+        throw new NotImplementedException();
+    }
+
+    isConnected() {
+        throw new NotImplementedException();
+    }
+    
+    defineModel() {
+        throw new NotImplementedException();
+    }
+
     create(item) {
         throw new NotImplementedException();
     }
@@ -21,9 +33,6 @@ class Crud {
         throw new NotImplementedException();
     }
 
-    isConnected() {
-        throw new NotImplementedException();
-    }
 }
 
 module.exports = Crud

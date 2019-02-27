@@ -4,11 +4,13 @@
   "description": "// Códigos para configuração do postgres e mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/tests/mongodbStrategy.test.js -w"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "describe": "^1.2.0",
+    "mongoose": "^5.4.15",
     "pg": "^7.8.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.42.0"
