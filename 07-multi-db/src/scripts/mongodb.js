@@ -2,13 +2,13 @@
 // docker exec -it "id do mongodb no docker" mongo -u "user" -p "password" --authenticationDatabase herois
 
 // databases
-show dbs
+// show dbs
 
 // mudando o contexto para um database
-use herois
+// use herois
 
 // mostrar tables (coleções)
-show collections
+// show collections
 
 db.Heroes.insert({
     nome: 'Lanterna verde',
