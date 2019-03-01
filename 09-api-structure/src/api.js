@@ -18,7 +18,7 @@ function mapRoutes(instance, methods) {
 async function main() {
     const connection = Mongodb.connect()
     const context = new Context(new Mongodb(connection, heroiSchema))
-    console.log('mapRoutes', mapRoutes(new HeroRoute(context), HeroRoute.methods()))
+    // console.log('mapRoutes', mapRoutes(new HeroRoute(context), HeroRoute.methods()))
 
     app.route([
         ...mapRoutes(new HeroRoute(context), HeroRoute.methods())

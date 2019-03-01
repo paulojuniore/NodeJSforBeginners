@@ -44,3 +44,9 @@
 <code>npm install sequelize pg-hstore pg</code></br>
 
 <code>npm install mongoose</code>
+
+http://localhost:3000/herois?skip=0&limit=10&nome=flash
+
+<code>npm install hapi</code>
+
+<code>npm install joi</code>

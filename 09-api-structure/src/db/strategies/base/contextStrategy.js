@@ -18,8 +18,8 @@ class ContextStrategy extends Crud {
         return this._database.create(item)
     }
 
-    read(query) {
-        return this._database.read(query)
+    read(item, skip, limit) {
+        return this._database.read(item, skip, limit)
     }
 
     update(id, item) {
