@@ -67,11 +67,51 @@ class HeroRoutes extends BaseRoute {
                     const result = await this._db.create({ nome, poder })
                     return {
                         message: 'Herói cadastrado com sucesso!',
-                        _id: result._id
+                        id: result._id
                     }
                 } catch (error) {
                     console.log('Erro ao cadastrar!', error)
                     return 'Erro interno ao cadastrar!'
+                }
+            }
+        }
+    }
+
+    update() {
+        return {
+            path: '/herois/{id}',
+            method: 'PATCH',
+            config: {
+                validate: {
+                    params: {
+                        id: Joi.string().required()
+                    },
+                    payload: {
+                        nome: Joi.string().min(5).max(50),
+                        poder: Joi.string().min(5).max(50)
+                    }
+                }
+            },
+            handler: async (request, headers) => {
+                try {
+                    const { id } = request.params
+                    const { payload } = request
+                    const dadosString = JSON.stringify(payload)
+                    const dados = JSON.parse(dadosString)
+
+                    const result = await this._db.update(id, dados)
+
+                    if(result.nModified !== 1) {
+                        return {
+                            message: 'Não foi possível atualizar!'
+                        }
+                    }
+                    return {
+                        message: 'Herói atualizado com sucesso!'
+                    }
+                } catch (error) {
+                    console.log('Erro ao atualizar!')
+                    return 'Erro interno ao atualizar!'
                 }
             }
         }
