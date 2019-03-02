@@ -23,7 +23,7 @@ describe('Suíte de testes da API Heroes', function () {
             payload: JSON.stringify(MOCK_HEROI_ATUALIZAR)
         })
         const dados = JSON.parse(result.payload)
-        console.log('dados', dados)
+        
         MOCK_ID = dados.id
     })
 
@@ -118,6 +118,25 @@ describe('Suíte de testes da API Heroes', function () {
 
         assert.ok(statusCode === 200)
         assert.deepEqual(dados.message, 'Herói atualizado com sucesso!')
+    })
+
+    it('Atualizar um héroi PATCH - não deve atualizar com id inválido!', async () => {
+        const _id = `5c76db5c140a0734e087f6b9`
+        const expected = {
+            nome: 'Chapolim Colorado',
+            poder: 'Marreta biônica'
+        }
+        const result = await app.inject({
+            method: 'PATCH',
+            url: `/herois/${_id}`,
+            payload: JSON.stringify(expected)
+        })
+
+        const statusCode = result.statusCode
+        const dados = JSON.parse(result.payload)
+
+        assert.ok(statusCode === 200)
+        assert.deepEqual(dados.message, 'Não foi possível atualizar!')
     })
 
 })
