@@ -7,6 +7,10 @@ const Mongodb = require('./db/strategies/mongodb/mongodb')
 
 const HeroRoute = require('./routes/heroRoutes')
 
+const HapiSwagger = require('hapi-swagger')
+const Vision = require('vision')
+const Inert = require('inert')
+
 const app = new Hapi.Server({
     port: 3000
 })
@@ -20,9 +24,26 @@ async function main() {
     const context = new Context(new Mongodb(connection, heroiSchema))
     // console.log('mapRoutes', mapRoutes(new HeroRoute(context), HeroRoute.methods()))
 
-    app.route([
-        ...mapRoutes(new HeroRoute(context), HeroRoute.methods())
+    const swaggerOptions = {
+        info: {
+            title: 'API de Heróis - #NodeBR',
+            version: 'v1.0'
+        },
+        lang: 'pt'
+    }
+
+    await app.register([
+        Vision,
+        Inert,
+        {
+            plugin: HapiSwagger,
+            options: swaggerOptions
+        }
     ])
+
+    app.route(
+        mapRoutes(new HeroRoute(context), HeroRoute.methods())
+    )
 
     await app.start()
     console.log('Server is running on port', app.info.port)
