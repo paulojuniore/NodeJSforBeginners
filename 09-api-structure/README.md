@@ -50,3 +50,5 @@ http://localhost:3000/herois?skip=0&limit=10&nome=flash
 <code>npm install hapi</code>
 
 <code>npm install joi</code>
+
+<code>npm install boom</code>
