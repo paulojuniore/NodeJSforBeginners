@@ -1,6 +1,12 @@
 const assert = require('assert')
 const api = require('./../api')
 
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdWxvanVuaW9yZSIsImlkIjoxLCJpYXQiOjE1NTE3NTAzNTB9.FwRbBcTv1jlyN3DUfe8AsTsa9JJH625YE5iBTd_xzrY'
+
+const headers = {
+    authorization: TOKEN
+}
+
 const MOCK_HEROI_CADASTRAR = {
     nome: 'Dr. Strange',
     poder: 'Controle psiquico'
@@ -18,6 +24,7 @@ describe('Suíte de testes da API Heroes', function () {
     this.beforeAll(async () => {
         app = await api
         const result = await app.inject({
+            headers,
             method: 'POST',
             url: '/herois',
             payload: JSON.stringify(MOCK_HEROI_ATUALIZAR)
@@ -29,6 +36,7 @@ describe('Suíte de testes da API Heroes', function () {
 
     it('listar /herois', async () => {
         const result = await app.inject({
+            headers,
             method: 'GET',
             url: '/herois?skip=0&limit=10'
         })
@@ -42,6 +50,7 @@ describe('Suíte de testes da API Heroes', function () {
     it('Listar /herois - deve retornar somente 5 registros', async () => {
         const limit_size = 5
         const result = await app.inject({
+            headers,
             method: 'GET',
             url: `/herois?skip=0&limit=${limit_size}`
         })
@@ -55,6 +64,7 @@ describe('Suíte de testes da API Heroes', function () {
     it('Listar /herois - passando um limite não númerico', async () => {
         const limit_size = 'AEEA'
         const result = await app.inject({
+            headers,
             method: 'GET',
             url: `/herois?skip=0&limit=${limit_size}`
         })
@@ -74,8 +84,9 @@ describe('Suíte de testes da API Heroes', function () {
     })
 
     it('Listar GET /herois - filtrando por um item com um nome', async () => {
-        const NOME = 'Hvitserk'
+        const NOME = 'Dr. Strange'
         const result = await app.inject({
+            headers,
             method: 'GET',
             url: `/herois?nome=${NOME}&skip=0&limit=10`
         })
@@ -88,6 +99,7 @@ describe('Suíte de testes da API Heroes', function () {
 
     it('Cadastrar POST /herois - cadastrando um novo herói', async () => {
         const result = await app.inject({
+            headers,
             method: 'POST',
             url: `/herois`,
             payload: JSON.stringify(MOCK_HEROI_CADASTRAR)
@@ -108,6 +120,7 @@ describe('Suíte de testes da API Heroes', function () {
             poder: 'Marreta biônica'
         }
         const result = await app.inject({
+            headers,
             method: 'PATCH',
             url: `/herois/${_id}`,
             payload: JSON.stringify(expected)
@@ -127,6 +140,7 @@ describe('Suíte de testes da API Heroes', function () {
             poder: 'Marreta biônica'
         }
         const result = await app.inject({
+            headers,
             method: 'PATCH',
             url: `/herois/${_id}`,
             payload: JSON.stringify(updates)
@@ -146,6 +160,7 @@ describe('Suíte de testes da API Heroes', function () {
     it('Remover um herói /DELETE a partir do id.', async () => {
         const _id = MOCK_ID
         const result = await app.inject({
+            headers,
             method: 'DELETE',
             url: `/herois/${_id}`
         })
@@ -158,6 +173,7 @@ describe('Suíte de testes da API Heroes', function () {
     it('Remover um herói /DELETE não deve remover com id inválido.', async () => {
         const _id = '5c76db5c140a0734e087f6b9'
         const result = await app.inject({
+            headers,
             method: 'DELETE',
             url: `/herois/${_id}`
         })

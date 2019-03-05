@@ -34,15 +34,15 @@ describe('MongoDB Strategy', function () {
     })
 
     it('Atualizar um registro na tabela a partir do id', async () => {
-        const result = await context.update('5c76bedf44085921d8cccbc8', {
-            nome: 'Hvitserk',
-            poder: 'Viking Feroz'
+        const result = await context.update('5c7996cbe741501d684c38d7', {
+            nome: 'Capitão América',
+            poder: 'Escudo'
         })
         assert.deepEqual(result.nModified, 1)
     })
 
     it('Remove um registro da tabela a partir do seu id', async () => {
-        const result = await context.delete('5c76bede44085921d8cccbc7')
+        const result = await context.delete('5c79976f56ac4b1590a85146')
         assert.deepEqual(result.deletedCount, 1)
     })
 })

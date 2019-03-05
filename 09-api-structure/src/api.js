@@ -6,10 +6,14 @@ const heroiSchema = require('./db/strategies/mongodb/schemas/heroiSchema')
 const Mongodb = require('./db/strategies/mongodb/mongodb')
 
 const HeroRoute = require('./routes/heroRoutes')
+const AuthRoute = require('./routes/authRoutes')
+const JwtSecret = 'minhasenhasecreta123'
 
 const HapiSwagger = require('hapi-swagger')
 const Vision = require('vision')
 const Inert = require('inert')
+
+const HapiJwt = require('hapi-auth-jwt2')
 
 const app = new Hapi.Server({
     port: 3000
@@ -33,6 +37,7 @@ async function main() {
     }
 
     await app.register([
+        HapiJwt,
         Vision,
         Inert,
         {
@@ -41,9 +46,25 @@ async function main() {
         }
     ])
 
-    app.route(
-        mapRoutes(new HeroRoute(context), HeroRoute.methods())
-    )
+    app.auth.strategy('jwt', 'jwt', {
+        key: JwtSecret,
+        // options: {
+        //     expiresIn: 20
+        // }
+        validate: (data, request) => {
+            // verifica no banco se o usuário continua ativo
+            return {
+                isValid: true // caso não válido => false
+            }
+        }
+    })
+
+    app.auth.default('jwt')
+
+    app.route([
+        ...mapRoutes(new HeroRoute(context), HeroRoute.methods()),
+        ...mapRoutes(new AuthRoute(JwtSecret), AuthRoute.methods())
+    ])
 
     await app.start()
     console.log('Server is running on port', app.info.port)
