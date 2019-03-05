@@ -9,6 +9,9 @@ const HeroRoute = require('./routes/heroRoutes')
 const AuthRoute = require('./routes/authRoutes')
 const JwtSecret = 'minhasenhasecreta123'
 
+const Postgres = require('./../src/db/strategies/postgres/postgres')
+const UsuarioSchema = require('./../src/db/strategies/postgres/schemas/usuarioSchema')
+
 const HapiSwagger = require('hapi-swagger')
 const Vision = require('vision')
 const Inert = require('inert')
@@ -27,6 +30,10 @@ async function main() {
     const connection = Mongodb.connect()
     const context = new Context(new Mongodb(connection, heroiSchema))
     // console.log('mapRoutes', mapRoutes(new HeroRoute(context), HeroRoute.methods()))
+
+    const connectionPostgres = await Postgres.connect()
+    const model = await Postgres.defineModel(connectionPostgres, UsuarioSchema)
+    const contextPostgres = new Context(new Postgres(connectionPostgres, model))
 
     const swaggerOptions = {
         info: {
@@ -63,7 +70,7 @@ async function main() {
 
     app.route([
         ...mapRoutes(new HeroRoute(context), HeroRoute.methods()),
-        ...mapRoutes(new AuthRoute(JwtSecret), AuthRoute.methods())
+        ...mapRoutes(new AuthRoute(JwtSecret, contextPostgres), AuthRoute.methods())
     ])
 
     await app.start()

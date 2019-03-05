@@ -58,3 +58,5 @@ http://localhost:3000/herois?skip=0&limit=10&nome=flash
 <code>npm install jsonwebtoken</code>
 
 <code>npm install hapi-auth-jwt2</code>
+
+<code>npm install bcrypt</code>
