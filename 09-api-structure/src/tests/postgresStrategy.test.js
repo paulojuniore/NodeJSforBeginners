@@ -14,7 +14,7 @@ const MOCK_HEROI_ATUALIZAR = {
 }
 
 let context = {}
-describe('Postgres Strategy', function () {
+describe.only('Postgres Strategy', function () {
     this.timeout(Infinity)
     this.beforeAll(async function () {
         const connection = await Postgres.connect()

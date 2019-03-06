@@ -3,7 +3,7 @@ const PasswordHelper = require('./../helpers/passwordHelper')
 
 const senha = 'paulo@123321'
 const hash = '$2b$04$DKAnxXP18LxKmkDgGNoem.3pWifSa1aanx7VzWrb2QX1vh6OWD8kC'
-describe.only('UserHelper test suite', async function() {
+describe('UserHelper test suite', async function() {
     it('Deve gerar um hash a partir de uma senha.', async() => {
         const result = await PasswordHelper.hashPassword(senha)
         console.log('hash de senha:', result)
