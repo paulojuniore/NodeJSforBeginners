@@ -1,7 +1,7 @@
 const assert = require('assert')
-const Context = require('../db/strategies/base/contextStrategy')
-const MongoDB = require('../db/strategies/mongodb/mongodb')
-const heroiSchema = require('./../db/strategies/mongodb/schemas/heroiSchema')
+const Context = require('./../src/db/strategies/base/contextStrategy')
+const MongoDB = require('./../src/db/strategies/mongodb/mongodb')
+const heroiSchema = require('./../src/db/strategies/mongodb/schemas/heroiSchema')
 
 const MOCK_HEROI_CADASTRAR = {
     nome: 'Mulher maravilha',

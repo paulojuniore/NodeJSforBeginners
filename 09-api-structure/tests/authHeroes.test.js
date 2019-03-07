@@ -1,8 +1,8 @@
 const assert = require('assert')
-const api = require('../api')
-const Context = require('./../db/strategies/base/ContextStrategy')
-const Postgres = require('./../db/strategies/postgres/postgres')
-const UsuarioSchema = require('./../db/strategies/postgres/schemas/usuarioSchema')
+const api = require('./../src/api')
+const Context = require('./../src/db/strategies/base/ContextStrategy')
+const Postgres = require('./../src/db/strategies/postgres/postgres')
+const UsuarioSchema = require('./../src/db/strategies/postgres/schemas/usuarioSchema')
 
 let app = {}
 const USER = {

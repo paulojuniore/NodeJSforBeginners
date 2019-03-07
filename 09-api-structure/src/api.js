@@ -9,8 +9,8 @@ const HeroRoute = require('./routes/heroRoutes')
 const AuthRoute = require('./routes/authRoutes')
 const JwtSecret = 'minhasenhasecreta123'
 
-const Postgres = require('./../src/db/strategies/postgres/postgres')
-const UsuarioSchema = require('./../src/db/strategies/postgres/schemas/usuarioSchema')
+const Postgres = require('./db/strategies/postgres/postgres')
+const UsuarioSchema = require('.//db/strategies/postgres/schemas/usuarioSchema')
 
 const HapiSwagger = require('hapi-swagger')
 const Vision = require('vision')
