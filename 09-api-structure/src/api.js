@@ -5,10 +5,12 @@ const { ok } = require('assert')
 const env = process.env.NODE_ENV || "dev"
 ok(env === "dev" || env == "prod", "Environment is invalid. or dev or prod!")
 
-const configPath = join(__dirname, './config', `.env.${env}`)
+const configPath = join(__dirname, './../config', `.env.${env}`)
 config({
     path: configPath
 })
+
+console.log('path:', configPath)
 
 const Hapi = require('hapi')
 const Context = require('./db/strategies/base/contextStrategy')

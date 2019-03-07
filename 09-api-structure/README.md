@@ -62,3 +62,20 @@ http://localhost:3000/herois?skip=0&limit=10&nome=flash
 <code>npm install bcrypt</code>
 
 <code>npm install dotenv</code>
+
+<code>npm install -g cross-env</code>
+
+<code>npm install -g heroku</code>
+
+# Configurações do Heroku
+<code>
+    heroku login </br>
+    heroku apps:list </br>
+    heroku apps:create nome_da_aplicacao </br>
+    heroku git:remote --app nome_da_aplicacao_criada </br>
+    git init </br>
+    git add . </br>
+    git commit -m "message' </br>
+    git push heroku master </br>
+    heroku logs </br>
+</code>

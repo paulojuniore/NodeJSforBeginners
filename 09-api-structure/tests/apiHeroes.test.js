@@ -84,7 +84,7 @@ describe('Suíte de testes da API Heroes', function () {
     })
 
     it('Listar GET /herois - filtrando por um item com um nome', async () => {
-        const NOME = 'Dr. Strange'
+        const NOME = 'Mulher maravilha'
         const result = await app.inject({
             headers,
             method: 'GET',

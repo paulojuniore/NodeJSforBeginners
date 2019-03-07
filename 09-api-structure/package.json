@@ -4,13 +4,16 @@
   "description": "// Códigos para configuração do postgres e mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/"
+    "test": "mocha --timeout=10000 tests/",
+    "test:prod": "cross-env NODE_ENV=prod npm t",
+    "prod": "cross-env NODE_ENV=prod node src/api.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.4",
     "boom": "^7.3.0",
+    "cross-env": "^5.2.0",
     "describe": "^1.2.0",
     "dotenv": "^6.2.0",
     "hapi": "^18.1.0",

@@ -6,11 +6,11 @@ const UsuarioSchema = require('./../src/db/strategies/postgres/schemas/usuarioSc
 
 let app = {}
 const USER = {
-    user: 'paulojuniore',
+    username: 'paulojuniore',
     password: 'minhasenhasecreta'
 }
 const USER_DB = {
-    username: USER.user.toLowerCase(), 
+    username: USER.username.toLowerCase(), 
     password: '$2b$04$Wai5NG5HychC5mOjMkfjke2JQE5lmsDNVI0Gc1sRZW2Tx0IMwtu96'
 }
 
@@ -30,10 +30,10 @@ describe('Auth test suite', function() {
             url: '/login',
             payload: USER
         })
-
+        
         const statusCode = result.statusCode
         const dados = JSON.parse(result.payload)
-        // console.log('token:', dados.token)
+        //console.log('dados:', dados)
         assert.deepEqual(statusCode, 200)
         assert.ok(dados.token.length > 10)
     })
@@ -44,12 +44,12 @@ describe('Auth test suite', function() {
             url: '/login',
             payload: {
                 username: 'paulojunior',
-                senha: '123'
+                password: '123'
             }
         })
         const statusCode = result.statusCode
         const dados = JSON.parse(result.payload)
-
+        //console.log('dados', dados)
         assert.deepEqual(statusCode, 401)
         assert.deepEqual(dados.error, "Unauthorized")
     })
