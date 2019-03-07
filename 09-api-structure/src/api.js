@@ -1,4 +1,14 @@
-// npm install hapi
+const { config } = require('dotenv')
+const  { join } = require('path')
+const { ok } = require('assert')
+
+const env = process.env.NODE_ENV || "dev"
+ok(env === "dev" || env == "prod", "Environment is invalid. or dev or prod!")
+
+const configPath = join(__dirname, './config', `.env.${env}`)
+config({
+    path: configPath
+})
 
 const Hapi = require('hapi')
 const Context = require('./db/strategies/base/contextStrategy')
@@ -7,7 +17,7 @@ const Mongodb = require('./db/strategies/mongodb/mongodb')
 
 const HeroRoute = require('./routes/heroRoutes')
 const AuthRoute = require('./routes/authRoutes')
-const JwtSecret = 'minhasenhasecreta123'
+const JwtSecret = process.env.JWT_SECRET
 
 const Postgres = require('./db/strategies/postgres/postgres')
 const UsuarioSchema = require('.//db/strategies/postgres/schemas/usuarioSchema')
@@ -19,7 +29,7 @@ const Inert = require('inert')
 const HapiJwt = require('hapi-auth-jwt2')
 
 const app = new Hapi.Server({
-    port: 3000
+    port: process.env.PORT
 })
 
 function mapRoutes(instance, methods) {

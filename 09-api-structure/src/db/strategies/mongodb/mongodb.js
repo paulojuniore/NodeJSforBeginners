@@ -16,7 +16,7 @@ class MongoDB extends Crud {
     }
 
     static connect() {
-        Mongoose.connect('mongodb://localhost:27017/herois',
+        Mongoose.connect(process.env.MONGODB_URL,
             { useNewUrlParser: true }, function (error) {
                 if (!error) {
                     return
