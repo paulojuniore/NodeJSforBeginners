@@ -79,3 +79,5 @@ http://localhost:3000/herois?skip=0&limit=10&nome=flash
     git push heroku master </br>
     heroku logs </br>
 </code>
+
+<code>npm install -g pm2</code>

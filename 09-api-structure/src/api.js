@@ -10,7 +10,7 @@ config({
     path: configPath
 })
 
-console.log('path:', configPath)
+//console.log('path:', configPath)
 
 const Hapi = require('hapi')
 const Context = require('./db/strategies/base/contextStrategy')
