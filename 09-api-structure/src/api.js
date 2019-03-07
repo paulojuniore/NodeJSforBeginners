@@ -58,8 +58,18 @@ async function main() {
         // options: {
         //     expiresIn: 20
         // }
-        validate: (data, request) => {
+        validate: async (data, request) => {
             // verifica no banco se o usuário continua ativo
+            // console.log('dado', data)
+            const [result] = await contextPostgres.read({
+                username: data.username.toLowerCase()
+            })
+            // console.log('result', result)
+            if(!result) {
+                return {
+                    isValid: false
+                }
+            }
             return {
                 isValid: true // caso não válido => false
             }
