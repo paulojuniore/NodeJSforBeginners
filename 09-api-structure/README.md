@@ -81,3 +81,5 @@ http://localhost:3000/herois?skip=0&limit=10&nome=flash
 </code>
 
 <code>npm install -g pm2</code>
+
+<code>npm install --save-dev nyc</code>

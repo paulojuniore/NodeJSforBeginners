@@ -4,7 +4,9 @@
   "description": "// Códigos para configuração do postgres e mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout=10000 tests/",
+    "preinstall": "npm i -g pm2",
+    "postinstall": "cross-env NODE_ENV=prod npm t",
+    "test": "nyc --reporter=html mocha --timeout=10000 --exit tests/",
     "test:prod": "cross-env NODE_ENV=prod npm t",
     "prod": "cross-env NODE_ENV=prod pm2-runtime src/api.js"
   },
@@ -30,6 +32,7 @@
     "vision": "^5.4.4"
   },
   "devDependencies": {
-    "mocha": "^6.0.1"
+    "mocha": "^6.0.1",
+    "nyc": "^13.3.0"
   }
 }
